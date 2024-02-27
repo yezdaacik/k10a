@@ -24,7 +24,11 @@ CREATE TABLE IF NOT EXISTS `kitap` (
   `yazar_sira` int(11) NOT NULL DEFAULT 0,
   `tur_sira` int(11) NOT NULL DEFAULT 0,
   `sayfasayisi` smallint(6) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`sira`)
+  PRIMARY KEY (`sira`),
+  KEY `FK_kitap_yazar` (`yazar_sira`),
+  KEY `FK_kitap_tur` (`tur_sira`),
+  CONSTRAINT `FK_kitap_tur` FOREIGN KEY (`tur_sira`) REFERENCES `tur` (`sira`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_kitap_yazar` FOREIGN KEY (`yazar_sira`) REFERENCES `yazar` (`sira`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- k10a.kitap: ~0 rows (yaklaşık) tablosu için veriler indiriliyor
@@ -38,7 +42,9 @@ CREATE TABLE IF NOT EXISTS `ogrenci` (
   `soyad` varchar(30) NOT NULL DEFAULT '0',
   `sinif_sira` int(11) NOT NULL DEFAULT 0,
   `okulno` smallint(6) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`sira`)
+  PRIMARY KEY (`sira`),
+  KEY `FK_ogrenci_sinif` (`sinif_sira`),
+  CONSTRAINT `FK_ogrenci_sinif` FOREIGN KEY (`sinif_sira`) REFERENCES `sinif` (`sira`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- k10a.ogrenci: ~0 rows (yaklaşık) tablosu için veriler indiriliyor
